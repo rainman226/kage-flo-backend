@@ -15,13 +15,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User user){
         User result = userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/all")
     public List<User> getAllUsers(@RequestParam(defaultValue = "false", required = false) boolean sorted){
         return userService.getAllStudents(sorted);
