@@ -22,7 +22,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
+     @GetMapping
     public ResponseEntity<List<User>> getUsersByFields(@RequestParam(required = false) Integer id,
                                                        @RequestParam(required = false) String username,
                                                        @RequestParam(required = false) String email,
