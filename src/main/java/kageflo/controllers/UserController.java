@@ -21,6 +21,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/all")
     public List<User> getAllUsers(@RequestParam(defaultValue = "false", required = false) boolean sorted){
         return userService.getAllStudents(sorted);
