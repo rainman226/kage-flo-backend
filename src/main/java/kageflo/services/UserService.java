@@ -2,7 +2,10 @@ package kageflo.services;
 
 import kageflo.entities.User;
 import kageflo.repositories.UserRepository;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -16,6 +19,38 @@ public class UserService {
 
     public User addUser(User user) {
         return userRepository.save(user);
+    }
+
+    public List<User> getUsersByFields(Integer id, String username, String email, String dob, Boolean isAdmin) {
+        Specification<User> spec = Specification.where(null);
+
+        if(id != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id"), id));
+        }
+
+        if (username != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("username"), username));
+        }
+
+        if (email != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("email"), email));
+        }
+
+        if (dob != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("dob"), dob));
+        }
+
+        if (isAdmin != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("isAdmin"), isAdmin));
+        }
+
+        List<User> users = userRepository.findAll(spec);
+
+        if (users.isEmpty()) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
+
+        return userRepository.findAll(spec);
     }
 
     public List<User> getAllStudents(boolean sorted) {

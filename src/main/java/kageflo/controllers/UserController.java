@@ -22,6 +22,22 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @GetMapping
+    public ResponseEntity<List<User>> getUsersByFields(@RequestParam(required = false) Integer id,
+                                                       @RequestParam(required = false) String username,
+                                                       @RequestParam(required = false) String email,
+                                                       @RequestParam(required = false) String dob,
+                                                       @RequestParam(required = false) Boolean isAdmin) {
+
+        List<User> users = userService.getUsersByFields(id, username, email, dob, isAdmin);
+
+        if (users.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(users);
+        }
+    }
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/all")
     public List<User> getAllUsers(@RequestParam(defaultValue = "false", required = false) boolean sorted){
