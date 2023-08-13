@@ -19,7 +19,6 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<Anime> getAllAnime(boolean sorted){
         List<Anime> animes;
         if(sorted) animes = animeRepository.findAllByOrderByTitleAsc();
@@ -27,7 +26,6 @@ public class AnimeService {
         return animes;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<Anime> getAnime(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<Anime> animePage = animeRepository.findAll(pageable);
