@@ -14,6 +14,13 @@ public class AnimeController {
     @Autowired
     private AnimeService animeService;
 
+    @GetMapping("/getAnime")
+    public ResponseEntity<List<Anime>> getAnime(@RequestParam(defaultValue = "1") int page,
+                                                @RequestParam(defaultValue = "5") int pageSize){
+        List<Anime> animes = animeService.getAnime(page, pageSize);
+        return ResponseEntity.ok(animes);
+    }
+
     @GetMapping("/all")
     public List<Anime> getAllAnime(@RequestParam( defaultValue = "false", required = false) boolean sorted){
         return animeService.getAllAnime(sorted);
