@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-     @GetMapping
+    @GetMapping
     public ResponseEntity<List<User>> getUsersByFields(@RequestParam(required = false) Integer id,
                                                        @RequestParam(required = false) String username,
                                                        @RequestParam(required = false) String email,
