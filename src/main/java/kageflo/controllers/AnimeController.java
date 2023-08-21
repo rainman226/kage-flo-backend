@@ -14,7 +14,7 @@ public class AnimeController {
     @Autowired
     private AnimeService animeService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    //@CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAnime")
     public ResponseEntity<List<Anime>> getAnime(@RequestParam(defaultValue = "1") int page,
                                                 @RequestParam(defaultValue = "5") int pageSize){
@@ -22,7 +22,7 @@ public class AnimeController {
         return ResponseEntity.ok(animes);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    //@CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all")
     public List<Anime> getAllAnime(@RequestParam( defaultValue = "false", required = false) boolean sorted){
         return animeService.getAllAnime(sorted);
