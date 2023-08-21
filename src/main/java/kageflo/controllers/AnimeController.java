@@ -17,7 +17,7 @@ public class AnimeController {
     //@CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAnime")
     public ResponseEntity<List<Anime>> getAnime(@RequestParam(defaultValue = "1") int page,
-                                                @RequestParam(defaultValue = "5") int pageSize){
+                                                @RequestParam(defaultValue = "15") int pageSize){
         List<Anime> animes = animeService.getAnime(page, pageSize);
         return ResponseEntity.ok(animes);
     }
