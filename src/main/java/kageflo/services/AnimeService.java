@@ -31,4 +31,10 @@ public class AnimeService {
         Page<Anime> animePage = animeRepository.findAll(pageable);
         return animePage.getContent();
     }
+
+    public List<Anime> searchAnimeByTitleIgnoreCase(String keyword){
+        String lowercaseKeyword = keyword.toLowerCase();
+        List<Anime> animeList = animeRepository.searchAnimeByTitleIgnoreCase(lowercaseKeyword);
+        return animeList;
+    }
 }

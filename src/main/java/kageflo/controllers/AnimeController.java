@@ -22,6 +22,11 @@ public class AnimeController {
         return ResponseEntity.ok(animes);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Anime>> searchAnime(@RequestParam String keyword) {
+        List<Anime> animeList = animeService.searchAnimeByTitleIgnoreCase(keyword);
+        return ResponseEntity.ok(animeList);
+    }
     //@CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all")
     public List<Anime> getAllAnime(@RequestParam( defaultValue = "false", required = false) boolean sorted){
