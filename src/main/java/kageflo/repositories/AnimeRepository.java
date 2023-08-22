@@ -1,6 +1,7 @@
 package kageflo.repositories;
 
 import kageflo.entities.Anime;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface AnimeRepository extends JpaRepository<Anime, Integer> {
 
     @Query("SELECT a FROM Anime a WHERE LOWER(a.title) LIKE %:keyword%")
     List<Anime> searchAnimeByTitleIgnoreCase(String keyword);
+
+    List<Anime> findAll(Specification<Anime> spec);
 }
