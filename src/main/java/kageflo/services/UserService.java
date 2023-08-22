@@ -2,8 +2,10 @@ package kageflo.services;
 
 import kageflo.entities.User;
 import kageflo.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -13,11 +15,16 @@ import java.util.List;
 public class UserService {
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public User addUser(User user) {
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword); // Set the hashed password
         return userRepository.save(user);
     }
 
