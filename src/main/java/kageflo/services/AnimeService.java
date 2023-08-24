@@ -3,6 +3,7 @@ package kageflo.services;
 import kageflo.entities.Anime;
 import kageflo.entities.User;
 import kageflo.repositories.AnimeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 public class AnimeService {
+    @Autowired
     private AnimeRepository animeRepository;
 
     public AnimeService(AnimeRepository animeRepository) {
