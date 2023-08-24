@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/entry")
@@ -58,6 +59,11 @@ public class EntryController {
         }
     }
 
+    @GetMapping("/get")
+    public ResponseEntity<Optional<Entry>> getEntryById(@RequestParam int id){
+        Optional<Entry> result = entryService.getEntryById(id);
+        return ResponseEntity.ok(result);
+    }
     @GetMapping("/getEntryId")
     public ResponseEntity<Integer> getEntryId(@RequestParam int userID,
                                               @RequestParam int animeID){

@@ -7,10 +7,10 @@ import kageflo.repositories.AnimeRepository;
 import kageflo.repositories.EntryRepository;
 import kageflo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.core.userdetails.UserDetailsResourceFactoryBean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EntryService {
@@ -74,6 +74,10 @@ public class EntryService {
         return entryRepository.existsByUserID_IdAndAnimeID_Id(userID, animeID);
     }
 
+    public Optional<Entry> getEntryById(int id){
+        Optional<Entry> result = entryRepository.findById(id);
+        return result;
+    }
     public int getEntryId(int userID, int animeID) {
         Entry result = entryRepository.findByUserID_IdAndAnimeID_Id(userID, animeID);
         return result.getId();
