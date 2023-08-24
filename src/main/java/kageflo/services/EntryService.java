@@ -66,7 +66,16 @@ public class EntryService {
         }
     }
 
+    public List<Entry> findByUserId(int userID){
+        List<Entry> result = entryRepository.findByUserID_Id((userID));
+        return result;
+    }
     public boolean hasEntry(int userID, int animeID) {
         return entryRepository.existsByUserID_IdAndAnimeID_Id(userID, animeID);
+    }
+
+    public int getEntryId(int userID, int animeID) {
+        Entry result = entryRepository.findByUserID_IdAndAnimeID_Id(userID, animeID);
+        return result.getId();
     }
 }

@@ -20,7 +20,12 @@ public class UserController {
         User result = userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
-
+    @GetMapping("/login")
+    public ResponseEntity<Boolean> login(@RequestParam String username,
+                                         @RequestParam String password){
+        Boolean response = userService.authenticate(username, password);
+        return ResponseEntity.ok(response);
+    }
     @GetMapping
     public ResponseEntity<List<User>> getUsersByFields(@RequestParam(required = false) Integer id,
                                                        @RequestParam(required = false) String username,

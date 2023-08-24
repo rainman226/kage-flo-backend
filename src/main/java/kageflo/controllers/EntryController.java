@@ -35,7 +35,7 @@ public class EntryController {
         return ResponseEntity.ok(hasEntry);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Entry> updateEntry(@PathVariable int id,
                                              @RequestBody Entry updatedEntry){
         Entry updated = entryService.updateEntry(id, updatedEntry);
@@ -46,7 +46,24 @@ public class EntryController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Entry>> getUserEntries(@PathVariable int id){
+        List<Entry> result = entryService.findByUserId(id);
+
+        if (result.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(result);
+        }
+    }
+
+    @GetMapping("/getEntryId")
+    public ResponseEntity<Integer> getEntryId(@RequestParam int userID,
+                                              @RequestParam int animeID){
+        int entryID = entryService.getEntryId(userID, animeID);
+        return ResponseEntity.ok(entryID);
+    }
     @GetMapping("/all")
     public List<Entry> getAllEntries(){
         return entryService.findAll();
