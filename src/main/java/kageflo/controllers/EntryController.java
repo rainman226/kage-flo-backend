@@ -28,8 +28,16 @@ public class EntryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @GetMapping("/hasEntry")
+    public ResponseEntity<Boolean> hasEntry(@RequestParam int userID,
+                                            @RequestParam int animeID){
+        boolean hasEntry = entryService.hasEntry(userID, animeID);
+        return ResponseEntity.ok(hasEntry);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Entry> updateEntry(@PathVariable int id, @RequestBody Entry updatedEntry){
+    public ResponseEntity<Entry> updateEntry(@PathVariable int id,
+                                             @RequestBody Entry updatedEntry){
         Entry updated = entryService.updateEntry(id, updatedEntry);
 
         if(updated != null) {
@@ -38,6 +46,7 @@ public class EntryController {
             return ResponseEntity.notFound().build();
         }
     }
+    
     @GetMapping("/all")
     public List<Entry> getAllEntries(){
         return entryService.findAll();

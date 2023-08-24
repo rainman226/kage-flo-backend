@@ -65,4 +65,8 @@ public class EntryService {
             return null;
         }
     }
+
+    public boolean hasEntry(int userID, int animeID) {
+        return entryRepository.existsByUserID_IdAndAnimeID_Id(userID, animeID);
+    }
 }

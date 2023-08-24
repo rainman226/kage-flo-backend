@@ -29,7 +29,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getUsersByFields(Integer id, String username, String email, String dob, Boolean isAdmin) {
+    public List<User> getUsersByFields(Integer id,
+                                       String username,
+                                       String email,
+                                       String dob,
+                                       Boolean isAdmin) {
         Specification<User> spec = Specification.where(null);
 
         if(id != null) {
