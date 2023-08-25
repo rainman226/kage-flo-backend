@@ -88,4 +88,8 @@ public class AnimeService {
 
         return animeRepository.findAll(spec);
     }
+
+    public void addAnime(Anime anime) {
+        animeRepository.save(anime);
+    }
 }

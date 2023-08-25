@@ -3,6 +3,7 @@ package kageflo.controllers;
 import kageflo.entities.Anime;
 import kageflo.services.AnimeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,15 @@ public class AnimeController {
     @Autowired
     private AnimeService animeService;
 
+    @PostMapping("/add")
+    public ResponseEntity<String> addAnime(@RequestBody Anime anime){
+        try {
+            animeService.addAnime(anime);
+            return new ResponseEntity<>("Anime added succesfully!", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error adding anime", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/getAnime")
     public ResponseEntity<List<Anime>> getAnime(@RequestParam(defaultValue = "1") int page,
                                                 @RequestParam(defaultValue = "15") int pageSize){
