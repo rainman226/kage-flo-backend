@@ -9,6 +9,7 @@ import kageflo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +69,17 @@ public class EntryService {
 
     public List<Entry> findByUserId(int userID){
         List<Entry> result = entryRepository.findByUserID_Id((userID));
+        result.sort(Comparator.comparingInt(entry -> {
+            // Convert Status to a numeric value for sorting
+            switch (entry.getStatus()) {
+                case WATCHING: return 1;
+                case COMPLETED: return 2;
+                case ONHOLD: return 3;
+                case DROPPED: return 4;
+                case PTW: return 5;
+                default: return 6;
+            }
+        }));
         return result;
     }
     public boolean hasEntry(int userID, int animeID) {
