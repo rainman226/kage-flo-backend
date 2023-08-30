@@ -42,8 +42,7 @@ public class EntryService {
             entry.setAnimeID(managedAnime);
 
             // Now you can persist the Entry entity
-            Entry savedEntry = entryRepository.save(entry);
-            return savedEntry;
+            return entryRepository.save(entry);
         } else {
             // Handle case where User or Anime entity is not found
             return null;
@@ -93,5 +92,16 @@ public class EntryService {
     public int getEntryId(int userID, int animeID) {
         Entry result = entryRepository.findByUserID_IdAndAnimeID_Id(userID, animeID);
         return result.getId();
+    }
+
+    public boolean deleteEntry(int id){
+        Optional<Entry> optionalEntry = entryRepository.findById(id);
+
+        if (optionalEntry.isPresent()) {
+            entryRepository.delete(optionalEntry.get());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

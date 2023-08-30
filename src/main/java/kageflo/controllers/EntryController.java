@@ -66,9 +66,20 @@ public class EntryController {
     }
     @GetMapping("/getEntryId")
     public ResponseEntity<Integer> getEntryId(@RequestParam int userID,
-                                              @RequestParam int animeID){
+                                              @RequestParam int animeID) {
         int entryID = entryService.getEntryId(userID, animeID);
         return ResponseEntity.ok(entryID);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteEntry(@RequestParam int id) {
+        boolean deleted = entryService.deleteEntry(id);
+
+        if (deleted) {
+            return ResponseEntity.ok("Entry deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entry not found");
+        }
     }
     @GetMapping("/all")
     public List<Entry> getAllEntries(){

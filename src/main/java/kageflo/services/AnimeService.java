@@ -44,6 +44,7 @@ public class AnimeService {
     }
 
     public List<Anime> getAnimeByFields(Integer id,
+                                        String title,
                                         String startDate,
                                         String type,
                                         Integer episodes,
@@ -54,6 +55,10 @@ public class AnimeService {
 
         if(id != null){
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id"), id));
+        }
+
+        if(title != null){
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("title"), title));
         }
 
         if(startDate != null){
