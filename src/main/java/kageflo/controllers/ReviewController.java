@@ -18,6 +18,12 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
+    /**
+     * Endpoint to save a new review.
+     *
+     * @param review The Review object containing the details of the review to be saved.
+     * @return A ResponseEntity containing the added Review object with a status of 201 Created.
+     */
     @Transactional
     @PostMapping("/save")
     public ResponseEntity<Review> addReview(@RequestBody Review review){
@@ -25,6 +31,14 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    /**
+     * Endpoint to retrieve reviews based on different fields using query parameters.
+     *
+     * @param id The unique identifier of the review.
+     * @param userID The ID of the user associated with the review.
+     * @param animeID The ID of the anime associated with the review.
+     * @return A ResponseEntity containing a list of Review objects based on the provided query parameters.
+     */
     @GetMapping
     public ResponseEntity<List<Review>> getReviewsByFields(@RequestParam(required = false) Integer id,
                                                            @RequestParam(required = false) Integer userID,
@@ -37,6 +51,12 @@ public class ReviewController {
             return ResponseEntity.ok(result);
         }
     }
+
+    /**
+     * Endpoint to retrieve all reviews.
+     *
+     * @return A list of all Review objects.
+     */
     @GetMapping("/all")
     public List<Review> getAllReviews() { return reviewService.findAll(); }
 }
