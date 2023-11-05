@@ -8,24 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class ArticleService {
-    @Autowired
-    ArticleRepository articleRepository;
+public interface ArticleService {
+    void addArticle(Article article);
 
-    public ArticleService(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
-    }
+    List<Article> getAll();
 
-    public void addArticle(Article article){
-        articleRepository.save(article);
-    }
-
-    public List<Article> getAll(){
-        return articleRepository.findAll();
-    }
-
-    public Optional<Article> getById(int id){
-        return articleRepository.findById(id);
-    }
+    Optional<Article> getById(int id);
 }
